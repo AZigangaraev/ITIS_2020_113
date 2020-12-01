@@ -17,6 +17,8 @@
 		AEA915CE257551B500172136 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA915CD257551B500172136 /* UserService.swift */; };
 		AEA915D125755C1100172136 /* UsersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA915D025755C1100172136 /* UsersResponse.swift */; };
 		AEA915D6257563B000172136 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA915D5257563B000172136 /* UserViewController.swift */; };
+		DEBF1A1E2576588B0051E415 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBF1A1D2576588B0051E415 /* UserResponse.swift */; };
+		DEBF1A2125765EBD0051E415 /* UIImageView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBF1A2025765EBD0051E415 /* UIImageView + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		AEA915CD257551B500172136 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AEA915D025755C1100172136 /* UsersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersResponse.swift; sourceTree = "<group>"; };
 		AEA915D5257563B000172136 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		DEBF1A1D2576588B0051E415 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		DEBF1A2025765EBD0051E415 /* UIImageView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				AEA915D025755C1100172136 /* UsersResponse.swift */,
+				DEBF1A1D2576588B0051E415 /* UserResponse.swift */,
 				AEA915C92575511000172136 /* User.swift */,
 				AEA915CD257551B500172136 /* UserService.swift */,
 			);
@@ -91,6 +96,7 @@
 			children = (
 				AEA915B72575506600172136 /* ViewController.swift */,
 				AEA915D5257563B000172136 /* UserViewController.swift */,
+				DEBF1A2025765EBD0051E415 /* UIImageView + Extension.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -168,7 +174,9 @@
 				AEA915D6257563B000172136 /* UserViewController.swift in Sources */,
 				AEA915CA2575511000172136 /* User.swift in Sources */,
 				AEA915CE257551B500172136 /* UserService.swift in Sources */,
+				DEBF1A1E2576588B0051E415 /* UserResponse.swift in Sources */,
 				AEA915B82575506600172136 /* ViewController.swift in Sources */,
+				DEBF1A2125765EBD0051E415 /* UIImageView + Extension.swift in Sources */,
 				AEA915B42575506600172136 /* AppDelegate.swift in Sources */,
 				AEA915B62575506600172136 /* SceneDelegate.swift in Sources */,
 				AEA915D125755C1100172136 /* UsersResponse.swift in Sources */,
