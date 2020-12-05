@@ -86,4 +86,63 @@ class UserService {
         }
         dataTask.resume()
     }
+    
+    func loadUser(id: Int, _ completion: @escaping (Result<UserResponse, UserServiceError>) -> Void) {
+        
+        guard let urlComponents = URLComponents(url: baseUrl.appendingPathComponent("users/\(id)"), resolvingAgainstBaseURL: false) else {
+            return completion(.failure(.urlCreation))
+        }
+        guard let url = urlComponents.url else {
+            return completion(.failure(.urlCreation))
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.setValue("text/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.timeoutInterval = timeoutInterval
+        let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            let result: Result<UserResponse, UserServiceError>
+            
+            defer {
+                self.responseQueue.async {
+                    completion(result)
+                }
+            }
+            
+            if let error = error {
+                return result = .failure(.system(error))
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return result = .failure(.nonHttpResponse)
+            }
+            guard (200..<300).contains(httpResponse.statusCode) else {
+                return result = .failure(.statusCode(httpResponse.statusCode))
+            }
+            guard let data = data else {
+                return result = .failure(.noData)
+            }
+            
+            do {
+                let user = try self.decoder.decode(UserResponse.self, from: data)
+                result = .success(user)
+            } catch {
+                print("\nResponse:\n\(String(data: data, encoding: .utf8) ?? "")\n")
+                return result = .failure(.parsing(error))
+            }
+        }
+        dataTask.resume()
+    }
+    
+    
+    func getAvatar(url: URL, _ completion: @escaping (Result<Data, UserServiceError>) -> Void) {
+
+        let dataTask = URLSession.shared.dataTask(with: url) { data, _, _ in
+            DispatchQueue.main.async {
+                if let data = data {
+                    completion(.success(data))
+                }
+            }
+        }
+        dataTask.resume()
+    }
 }
