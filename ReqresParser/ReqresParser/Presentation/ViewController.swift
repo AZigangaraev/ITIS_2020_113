@@ -65,7 +65,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         let user = users[indexPath.row]
         cell.textLabel?.text = "\(user.firstName) \(user.lastName)"
-
         return cell
     }
 

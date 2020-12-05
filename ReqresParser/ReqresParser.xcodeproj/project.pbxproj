@@ -17,6 +17,7 @@
 		AEA915CE257551B500172136 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA915CD257551B500172136 /* UserService.swift */; };
 		AEA915D125755C1100172136 /* UsersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA915D025755C1100172136 /* UsersResponse.swift */; };
 		AEA915D6257563B000172136 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA915D5257563B000172136 /* UserViewController.swift */; };
+		E8C4B8F625783E2D00DC41B6 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C4B8F525783E2D00DC41B6 /* UserResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AEA915CD257551B500172136 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		AEA915D025755C1100172136 /* UsersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersResponse.swift; sourceTree = "<group>"; };
 		AEA915D5257563B000172136 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		E8C4B8F525783E2D00DC41B6 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				AEA915D025755C1100172136 /* UsersResponse.swift */,
 				AEA915C92575511000172136 /* User.swift */,
 				AEA915CD257551B500172136 /* UserService.swift */,
+				E8C4B8F525783E2D00DC41B6 /* UserResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				AEA915D6257563B000172136 /* UserViewController.swift in Sources */,
 				AEA915CA2575511000172136 /* User.swift in Sources */,
 				AEA915CE257551B500172136 /* UserService.swift in Sources */,
+				E8C4B8F625783E2D00DC41B6 /* UserResponse.swift in Sources */,
 				AEA915B82575506600172136 /* ViewController.swift in Sources */,
 				AEA915B42575506600172136 /* AppDelegate.swift in Sources */,
 				AEA915B62575506600172136 /* SceneDelegate.swift in Sources */,
