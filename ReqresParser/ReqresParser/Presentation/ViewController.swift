@@ -44,6 +44,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print(error)
             }
         }
+        
+        
     }
 
     // MARK: - Table view
@@ -73,6 +75,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.deselectRow(at: indexPath, animated: true)
         guard let controller = storyboard.map(UserViewController.from) else { return }
         controller.userId = users[indexPath.row].id
+        userService.loadUserDetail(user: indexPath.item + 1) { [self] result in
+            switch result {
+                case .success(let user):
+                    controller.setUp(name: user.user.firstName, email: user.user.email, avatar: user.user.avatar)
+                    print("avatar: \(user.user.avatar)")
+                case .failure(let error):
+                    print(error)
+            }
+        }
         show(controller, sender: nil)
     }
 }
