@@ -18,3 +18,11 @@ struct UsersResponse: Codable {
         case users = "data"
     }
 }
+
+struct UserResponse: Codable {
+    let user: User
+
+    enum CodingKeys: String, CodingKey {
+        case user = "data"
+    }
+}
