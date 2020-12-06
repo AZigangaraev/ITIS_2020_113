@@ -42,6 +42,7 @@ class UserService {
         guard var urlComponents = URLComponents(url: baseUrl.appendingPathComponent("users"), resolvingAgainstBaseURL: false) else {
             return completion(.failure(.urlCreation))
         }
+        print("urlComponents1: \(urlComponents)")
         if page > 1 {
             urlComponents.queryItems = [
                 URLQueryItem(name: "page", value: "\(page)")
@@ -50,6 +51,8 @@ class UserService {
         guard let url = urlComponents.url else {
             return completion(.failure(.urlCreation))
         }
+        print("urlComponents2: \(urlComponents)")
+        print("url: \(url)")
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
         urlRequest.setValue("text/json", forHTTPHeaderField: "Content-Type")
@@ -77,6 +80,60 @@ class UserService {
             }
             do {
                 let response = try self.decoder.decode(UsersResponse.self, from: data)
+                result = .success(response)
+            } catch {
+                print("\nResponse:\n\(String(data: data, encoding: .utf8) ?? "")\n")
+                return result = .failure(.parsing(error))
+            }
+
+        }
+        dataTask.resume()
+    }
+    
+    
+    
+    func loadUserDetail(user: Int, _ completion: @escaping (Result<UserResponse, UserServiceError>) -> Void) {
+        guard var urlComponents = URLComponents(url: baseUrl.appendingPathComponent("users"), resolvingAgainstBaseURL: false) else {
+            return completion(.failure(.urlCreation))
+        }
+        print("urlComponents1: \(urlComponents)")
+        guard var urlComponents1 = URLComponents(url: urlComponents.url!.appendingPathComponent("\(user)"), resolvingAgainstBaseURL: false) else {
+            return completion(.failure(.urlCreation))
+        }
+        guard let url = urlComponents1.url else {
+            return completion(.failure(.urlCreation))
+        }
+        print("urlComponents2: \(urlComponents)")
+        print("url: \(url)")
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.setValue("text/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.timeoutInterval = timeoutInterval
+        
+        let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            let result: Result<UserResponse, UserServiceError>
+            defer {
+                self.responseQueue.async {
+                    completion(result)
+                }
+            }
+
+            if let error = error {
+                return result = .failure(.system(error))
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return result = .failure(.nonHttpResponse)
+            }
+            guard (200..<300).contains(httpResponse.statusCode) else {
+                return result = .failure(.statusCode(httpResponse.statusCode))
+            }
+            guard let data = data else {
+                return result = .failure(.noData)
+            }
+            do {
+                let response = try self.decoder.decode(UserResponse.self, from: data)
                 result = .success(response)
             } catch {
                 print("\nResponse:\n\(String(data: data, encoding: .utf8) ?? "")\n")
