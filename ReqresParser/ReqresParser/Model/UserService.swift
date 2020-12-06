@@ -38,6 +38,50 @@ class UserService {
 
     var timeoutInterval: TimeInterval = 15
 
+    func loadUser(id userId: Int, _ completion: @escaping (Result<UserResponse, UserServiceError>) -> Void) {
+        guard let urlComponents = URLComponents(url: baseUrl.appendingPathComponent("users").appendingPathComponent("\(userId)"), resolvingAgainstBaseURL: false) else {
+            return completion(.failure(.urlCreation))
+        }
+        guard let url = urlComponents.url else {
+            return completion(.failure(.urlCreation))
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.setValue("text/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.timeoutInterval = timeoutInterval
+        let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            let result: Result<UserResponse, UserServiceError>
+            defer {
+                self.responseQueue.async {
+                    completion(result)
+                }
+            }
+
+            if let error = error {
+                return result = .failure(.system(error))
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                return result = .failure(.nonHttpResponse)
+            }
+            guard (200..<300).contains(httpResponse.statusCode) else {
+                return result = .failure(.statusCode(httpResponse.statusCode))
+            }
+            guard let data = data else {
+                return result = .failure(.noData)
+            }
+            do {
+                let response = try self.decoder.decode(UserResponse.self, from: data)
+                result = .success(response)
+            } catch {
+                print("\nResponse:\n\(String(data: data, encoding: .utf8) ?? "")\n")
+                return result = .failure(.parsing(error))
+            }
+
+        }
+        dataTask.resume()
+    }
+
     func loadUsers(page: Int, _ completion: @escaping (Result<UsersResponse, UserServiceError>) -> Void) {
         guard var urlComponents = URLComponents(url: baseUrl.appendingPathComponent("users"), resolvingAgainstBaseURL: false) else {
             return completion(.failure(.urlCreation))
@@ -82,7 +126,6 @@ class UserService {
                 print("\nResponse:\n\(String(data: data, encoding: .utf8) ?? "")\n")
                 return result = .failure(.parsing(error))
             }
-
         }
         dataTask.resume()
     }
