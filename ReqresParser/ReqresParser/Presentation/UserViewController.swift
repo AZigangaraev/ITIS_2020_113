@@ -36,7 +36,12 @@ class UserViewController: UIViewController {
                 userService.loadImageOfUser(user: user) { [self] result in
                     switch result {
                     case .success(let data):
-                        self.avatarImageView.image = UIImage(data: data)
+                        //сделал проверку на то, что вернется нормальная data, по которой можно сделать UIImage. Если нельзя, то ставлю дефолтную.
+                        if let image = UIImage(data: data) {
+                            self.avatarImageView.image = image
+                        } else {
+                            self.avatarImageView.image = UIImage(systemName: "person")
+                        }
                     case .failure(let error):
                         print(error)
                     }
