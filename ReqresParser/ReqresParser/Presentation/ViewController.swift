@@ -73,6 +73,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.deselectRow(at: indexPath, animated: true)
         guard let controller = storyboard.map(UserViewController.from) else { return }
         controller.userId = users[indexPath.row].id
+        controller.userService = userService
         show(controller, sender: nil)
     }
 }
