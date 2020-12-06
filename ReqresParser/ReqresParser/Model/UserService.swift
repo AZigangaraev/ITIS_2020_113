@@ -88,7 +88,7 @@ class UserService {
     }
     
     func loadUser(userId: Int, _ completion: @escaping (Result<UserResponse, UserServiceError>) -> Void) {
-        guard let url = URLComponents(url: baseUrl.appendingPathComponent("users").appendingPathComponent("\(userId)"), resolvingAgainstBaseURL: false)?.url else {
+        guard let url = URLComponents(url: baseUrl.appendingPathComponent("users/\(userId)"), resolvingAgainstBaseURL: false)?.url else {
             return completion(.failure(.urlCreation))
         }
         var urlRequest = URLRequest(url: url)
@@ -136,11 +136,9 @@ class UserService {
                     completion(result)
                 }
             }
-
             if let error = error {
                 return result = .failure(.system(error))
             }
-
             guard let httpResponse = response as? HTTPURLResponse else {
                 return result = .failure(.nonHttpResponse)
             }
@@ -150,9 +148,7 @@ class UserService {
             guard let data = data else {
                 return result = .failure(.noData)
             }
-            do {
-                result = .success(data)
-            }
+            result = .success(data)
         }
         dataTask.resume()
     }
